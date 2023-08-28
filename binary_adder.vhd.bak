@@ -1,0 +1,22 @@
+entity binary_adder is
+    Port ( 
+        A : in STD_LOGIC_VECTOR(3 downto 0);
+        B : in STD_LOGIC_VECTOR(3 downto 0);
+        Cin : in STD_LOGIC;
+        Sum : out STD_LOGIC_VECTOR(3 downto 0);
+        Cout : out STD_LOGIC
+    );
+end binary_adder;
+
+architecture Behavioral of binary_adder is
+    signal temp_sum : STD_LOGIC_VECTOR(3 downto 0);
+begin
+    process (A, B, Cin)
+    begin
+        temp_sum <= (others => '0');
+        temp_sum <= A + B + Cin;
+        
+        Sum <= temp_sum;
+        Cout <= temp_sum(3) OR (temp_sum(2) AND temp_sum(1)) OR (temp_sum(2) AND Cin) OR (temp_sum(1) AND Cin);
+    end process;
+end Behavioral;
